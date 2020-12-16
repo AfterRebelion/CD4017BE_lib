@@ -32,7 +32,7 @@ public class PropertyBlock implements IUnlistedProperty<IBlockState> {
 
 	@Override
 	public String valueToString(IBlockState value) {
-		return value == null ? "none" : value.getBlock().getUnlocalizedName() + ":" + value.getBlock().getMetaFromState(value);
+		return value == null ? "none" : value.getBlock().getTranslationKey() + ":" + value.getBlock().getMetaFromState(value);
 	}
 
 }

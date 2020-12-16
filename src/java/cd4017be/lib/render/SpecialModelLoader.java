@@ -61,7 +61,7 @@ public class SpecialModelLoader implements ICustomModelLoader {
 
 	public static void registerFluid(Fluid fluid) {
 		Block block = fluid.getBlock();
-		if (block == null || !mod.equals(block.getRegistryName().getResourceDomain())) return;
+		if (block == null || !mod.equals(block.getRegistryName().getNamespace())) return;
 		ModelFluid model = new ModelFluid(fluid);
 		instance.models.put(new ResourceLocation(mod, "models/block/" + fluid.getName()), model);
 		ModelLoader.setCustomStateMapper(fluid.getBlock(), stateMapper);
@@ -127,8 +127,8 @@ public class SpecialModelLoader implements ICustomModelLoader {
 
 	@Override
 	public boolean accepts(ResourceLocation modelLocation) {
-		if (mods.contains(modelLocation.getResourceDomain())) {
-			String path = modelLocation.getResourcePath();
+		if (mods.contains(modelLocation.getNamespace())) {
+			String path = modelLocation.getPath();
 			return path.startsWith(SCRIPT_PREFIX) || path.startsWith(NBT_PREFIX) || path.startsWith(NBT_PREFIX_IT) || models.containsKey(modelLocation);
 		} else return false;
 	}
@@ -137,22 +137,22 @@ public class SpecialModelLoader implements ICustomModelLoader {
 	public IModel loadModel(ResourceLocation modelLocation) throws Exception {
 		IModel model = models.get(modelLocation);
 		if (model != null) return model;
-		String path = modelLocation.getResourcePath();
+		String path = modelLocation.getPath();
 		int p;
 		if ((p = path.indexOf('$')) >= 0) {
-			model = loadModel(new ResourceLocation(modelLocation.getResourceDomain(), path.substring(0, p)));
+			model = loadModel(new ResourceLocation(modelLocation.getNamespace(), path.substring(0, p)));
 			model = new TextureReplacement(model, new ResourceLocation(path.substring(p + 1)));
 		} else if (path.startsWith(NBT_PREFIX) || path.startsWith(NBT_PREFIX_IT)) {
 			ParamertisedVariant v = ParamertisedVariant.parse(path);
 			String filePath = v.splitPath();
 			if (v.isBase())
-				model = new NBTModel(CompressedStreamTools.read(new DataInputStream(resourceManager.getResource(new ResourceLocation(modelLocation.getResourceDomain(), filePath.replaceAll("\\.", "") + ".nbt")).getInputStream())));
+				model = new NBTModel(CompressedStreamTools.read(new DataInputStream(resourceManager.getResource(new ResourceLocation(modelLocation.getNamespace(), filePath.replaceAll("\\.", "") + ".nbt")).getInputStream())));
 			else
-				model = new ModelVariant(loadModel(new ResourceLocation(modelLocation.getResourceDomain(), filePath)), v);
+				model = new ModelVariant(loadModel(new ResourceLocation(modelLocation.getNamespace(), filePath)), v);
 		} else if ((p = path.indexOf('#')) >= 0) {
 			String s = path.substring(p + 1);
 			Orientation o = Orientation.valueOf(s.substring(0, 1).toUpperCase() + s.substring(1));
-			model = loadModel(new ResourceLocation(modelLocation.getResourceDomain(), path.substring(0, p)));
+			model = loadModel(new ResourceLocation(modelLocation.getNamespace(), path.substring(0, p)));
 			model = new ModelVariant(model, o.getModelRotation());
 		} else if (path.startsWith(SCRIPT_PREFIX))
 			model = loadScriptModel(modelLocation);
@@ -161,8 +161,8 @@ public class SpecialModelLoader implements ICustomModelLoader {
 	}
 
 	private IModel loadScriptModel(ResourceLocation modelLocation) throws Exception {
-		String domain = modelLocation.getResourceDomain();
-		String scriptName = modelLocation.getResourcePath().substring(SCRIPT_PREFIX.length());
+		String domain = modelLocation.getNamespace();
+		String scriptName = modelLocation.getPath().substring(SCRIPT_PREFIX.length());
 		int p = scriptName.indexOf('.');
 		String methodName;
 		if (p >= 0) {

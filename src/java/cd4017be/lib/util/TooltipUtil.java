@@ -34,7 +34,7 @@ public class TooltipUtil {
 
 	public static String unlocalizedNameFor(IForgeRegistryEntry.Impl<?> obj) {
 		ResourceLocation loc = obj.getRegistryName();
-		return (loc.getResourceDomain().equals(CURRENT_DOMAIN) ? CURRENT_DOMAIN : "cd4017be") + '.' + loc.getResourcePath();
+		return (loc.getNamespace().equals(CURRENT_DOMAIN) ? CURRENT_DOMAIN : "cd4017be") + '.' + loc.getPath();
 	}
 
 	private static String ShiftHint, AltHint;

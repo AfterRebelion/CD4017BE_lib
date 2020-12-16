@@ -364,7 +364,7 @@ public class AdvancedBlock extends BaseBlock implements IGuiHandlerBlock {
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+	public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
 		if ((flags & 32) == 0) return;
 		TileEntity te = world.getTileEntity(pos);
 		if (te instanceof ITileCollision) ((ITileCollision)te).onEntityCollided(entity);
@@ -565,7 +565,7 @@ public class AdvancedBlock extends BaseBlock implements IGuiHandlerBlock {
 			cover = getCover(world, pos);
 		} else cover = null;
 		if (collision != null) {
-			end = end1.addVector(pos.getX(), pos.getY(), pos.getZ());
+			end = end1.add(pos.getX(), pos.getY(), pos.getZ());
 			collision = new RayTraceResult(end, collision.sideHit, pos);
 			collision.subHit = p;
 		}

@@ -38,9 +38,9 @@ public interface IHookAttachable extends IPortProvider {
 		}
 		target = target.subtract(player.getLook(1).scale(0.5));
 		int x1 = (int)Math.floor(target.x), y1 = (int)Math.floor(target.y), z1 = (int)Math.floor(target.z);
-		x1 = MathHelper.clamp(x0 - x1 - side.getFrontOffsetX(), -1, 1);
-		y1 = MathHelper.clamp(y0 - y1 - side.getFrontOffsetY(), -1, 1);
-		z1 = MathHelper.clamp(z0 - z1 - side.getFrontOffsetZ(), -1, 1);
+		x1 = MathHelper.clamp(x0 - x1 - side.getXOffset(), -1, 1);
+		y1 = MathHelper.clamp(y0 - y1 - side.getYOffset(), -1, 1);
+		z1 = MathHelper.clamp(z0 - z1 - side.getZOffset(), -1, 1);
 		int p = (x0 - x1 & 0xf) | (y0 - y1 & 0xf) << 4 | (z0 - z1 & 0xf) << 8;
 		return p | (x1 + 2) << 16 | (y1 + 2) << 18 | (z1 + 2) << 20;
 	}

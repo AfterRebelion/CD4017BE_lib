@@ -41,7 +41,7 @@ public class NBTWrapper implements IOperand {
 
 	@Override
 	public boolean asBool() throws Error {
-		return !nbt.hasNoTags();
+		return !nbt.isEmpty();
 	}
 
 	@Override

@@ -148,7 +148,7 @@ public class DimPos extends BlockPos {
 	@Override
 	public DimPos offset(EnumFacing facing, int n) {
 		if (n == 0) return this;
-		DimPos pos = new DimPos(getX() + facing.getFrontOffsetX() * n, getY() + facing.getFrontOffsetY() * n, getZ() + facing.getFrontOffsetZ() * n, dimId);
+		DimPos pos = new DimPos(getX() + facing.getXOffset() * n, getY() + facing.getYOffset() * n, getZ() + facing.getZOffset() * n, dimId);
 		pos.world = world;
 		pos.side = side;
 		return pos;

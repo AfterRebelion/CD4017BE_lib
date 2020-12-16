@@ -100,7 +100,7 @@ public class RecipeAPI {
 		ItemStack stack = rcp.getRecipeOutput();
 		Item item = stack.getItem();
 		ResourceLocation res = item.getRegistryName();
-		String name = res.getResourceDomain() + "/" + res.getResourcePath();
+		String name = res.getNamespace() + "/" + res.getPath();
 		if (item.getHasSubtypes()) name += "_" + stack.getItemDamage();
 		int n = UsedNames.getOrDefault(name, 0);
 		UsedNames.put(name, n + 1);

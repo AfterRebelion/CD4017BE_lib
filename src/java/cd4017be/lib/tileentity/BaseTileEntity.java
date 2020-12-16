@@ -172,7 +172,7 @@ public class BaseTileEntity extends TileEntity implements IAbstractTile {
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		storeState(nbt, SYNC);
-		if (nbt.hasNoTags()) return null;
+		if (nbt.isEmpty()) return null;
 		if (redraw) {
 			nbt.setBoolean("", true);
 			redraw = false;
@@ -194,7 +194,7 @@ public class BaseTileEntity extends TileEntity implements IAbstractTile {
 	public void onLoad() {
 		if (world.isRemote ? this instanceof ITickableServerOnly : this instanceof ITickableClientOnly)
 			world.tickableTileEntities.remove(this);
-		chunk = world.getChunkFromBlockCoords(pos);
+		chunk = world.getChunk(pos);
 		setupData();
 		if (!unloaded)
 			Lib.LOG.warn("TileEntity @ {} was loaded twice, this might be problematic!", pos);
@@ -240,7 +240,7 @@ public class BaseTileEntity extends TileEntity implements IAbstractTile {
 	public void setWorld(World worldIn) {
 		super.setWorld(worldIn);
 		if (chunk == null && worldIn.isBlockLoaded(pos))
-			chunk = world.getChunkFromBlockCoords(pos);
+			chunk = world.getChunk(pos);
 	}
 
 	@Override
@@ -279,7 +279,7 @@ public class BaseTileEntity extends TileEntity implements IAbstractTile {
 	}
 
 	public String getName() {
-		return TooltipUtil.translate(this.getBlockType().getUnlocalizedName().replace("tile.", "gui.").concat(".name"));
+		return TooltipUtil.translate(this.getBlockType().getTranslationKey().replace("tile.", "gui.").concat(".name"));
 	}
 
 	@Override
@@ -287,7 +287,7 @@ public class BaseTileEntity extends TileEntity implements IAbstractTile {
 		super.updateContainingBlockInfo();
 		blockState = null;
 		if (world.isRemote && chunk == null)
-			chunk = world.getChunkFromBlockCoords(pos);
+			chunk = world.getChunk(pos);
 	}
 
 	@Override

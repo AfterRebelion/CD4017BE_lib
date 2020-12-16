@@ -191,8 +191,8 @@ public class NBTModel implements IModel {
 		boolean flag = true;
 		if (variant.params != null) {
 			NBTTagList vt = tag.getTagList(NBT_TEX_TRANSFORM, NBT.TAG_COMPOUND);
-			if (vt.hasNoTags()) vt = data.getTagList(NBT_TEX_TRANSFORM, NBT.TAG_COMPOUND);
-			if (!vt.hasNoTags()) {
+			if (vt.isEmpty()) vt = data.getTagList(NBT_TEX_TRANSFORM, NBT.TAG_COMPOUND);
+			if (!vt.isEmpty()) {
 				remap = new int[textures.length];
 				for (int i = 0; i < remap.length; i++) remap[i] = i;
 				for (NBTBase e : vt) {
@@ -211,14 +211,14 @@ public class NBTModel implements IModel {
 				}
 			}
 			vt = tag.getTagList(NBT_UV_TRANSFORM, NBT.TAG_COMPOUND);
-			if (coreUVs && vt.hasNoTags())
+			if (coreUVs && vt.isEmpty())
 				vt = data.getTagList(NBT_UV_TRANSFORM, NBT.TAG_COMPOUND);
-			if (!vt.hasNoTags())
+			if (!vt.isEmpty())
 				uvs = transform(uvs, 2, vt, variant.params);
 			vt = tag.getTagList(NBT_VERTEX_TRANSFORM, NBT.TAG_COMPOUND);
-			if (coreVertices && vt.hasNoTags())
+			if (coreVertices && vt.isEmpty())
 				vt = data.getTagList(NBT_VERTEX_TRANSFORM, NBT.TAG_COMPOUND);
-			flag = vt.hasNoTags();
+			flag = vt.isEmpty();
 			if (!flag) vertices = transform(vertices, 3, vt, variant.params);
 			if (colorMode >= 0) try {
 				String s = variant.params.getString(colorMode);

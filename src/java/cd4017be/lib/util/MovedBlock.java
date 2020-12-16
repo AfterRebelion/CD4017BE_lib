@@ -53,7 +53,7 @@ public class MovedBlock {
 	 */
 	public static MovedBlock cut(DimPos pos, @Nullable Map<DimPos, NBTTagCompound> addedTileEntities) {
 		World world = pos.getWorldServer();//force load dimension
-		Chunk chunk = world.getChunkFromBlockCoords(pos);//force load chunk
+		Chunk chunk = world.getChunk(pos);//force load chunk
 		NBTTagCompound nbt;
 		TileEntity te = chunk.getTileEntityMap().remove(pos);
 		if (te == null)
@@ -79,7 +79,7 @@ public class MovedBlock {
 	public boolean paste(DimPos pos, @Nullable Map<DimPos, NBTTagCompound> addedTileEntities) {
 		World world = pos.getWorld();
 		if (world == null || !world.isValid(pos)) return false;
-		Chunk chunk = world.getChunkFromBlockCoords(pos);
+		Chunk chunk = world.getChunk(pos);
 		IBlockState newState = block;
 		Block newBlock = newState.getBlock();
 		IBlockState oldState = chunk.getBlockState(pos);
@@ -153,7 +153,7 @@ public class MovedBlock {
 			nbt.setInteger("z", pos.getZ());
 			World world = pos.getWorld();
 			TileEntity te = TileEntity.create(world, nbt);
-			if (te != null) world.getChunkFromBlockCoords(pos).addTileEntity(te);
+			if (te != null) world.getChunk(pos).addTileEntity(te);
 		}
 	}
 
@@ -170,7 +170,7 @@ public class MovedBlock {
 	@Deprecated
 	public static boolean setBlock(World world, BlockPos pos, IBlockState state, TileEntity tile) {
 		if (!world.isBlockLoaded(pos)) return false;
-		Chunk chunk = world.getChunkFromBlockCoords(pos);
+		Chunk chunk = world.getChunk(pos);
 		IBlockState state0 = chunk.getBlockState(pos);
 		Block block = state.getBlock();
 		int oldLight = state0.getLightValue(world, pos);

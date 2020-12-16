@@ -67,7 +67,7 @@ public abstract class InWorldUITile extends BaseTileEntity implements IInteracti
 
 	public RayTraceResult getAimTarget(Entity e, float t) {
 		Orientation o = getOrientation();
-		Vec3d start = o.invRotate(e.getPositionEyes(t).subtract(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)).addVector(0.5, 0.5, 0.5);
+		Vec3d start = o.invRotate(e.getPositionEyes(t).subtract(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)).add(0.5, 0.5, 0.5);
 		Vec3d end = o.invRotate(e.getLook(t).scale(VIEW_DIST)).add(start);
 		RayTraceResult hit = null, h;
 		UIElement[] boxes = getBoxes();

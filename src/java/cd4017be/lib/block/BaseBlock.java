@@ -19,7 +19,7 @@ public class BaseBlock extends Block {
 	public BaseBlock(String id, Material m) {
 		super(m);
 		this.setRegistryName(id);
-		this.setUnlocalizedName(TooltipUtil.unlocalizedNameFor(this));
+		this.setTranslationKey(TooltipUtil.unlocalizedNameFor(this));
 		this.setHardness(1.5F);
 		this.setResistance(10F);
 	}

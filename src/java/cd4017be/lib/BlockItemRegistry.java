@@ -25,9 +25,9 @@ public class BlockItemRegistry {
 
 	@SideOnly(Side.CLIENT)
 	public static void registerRender(Item item, int m0, int m1) {
-		String id = item.getRegistryName().getResourcePath();
+		String id = item.getRegistryName().getPath();
 		for (int m = m0; m <= m1; m++)
-			ModelLoader.setCustomModelResourceLocation(item, m, new ModelResourceLocation(new ResourceLocation(item.getRegistryName().getResourceDomain(), m == 0 ? id : id + "_" + m), "inventory"));
+			ModelLoader.setCustomModelResourceLocation(item, m, new ModelResourceLocation(new ResourceLocation(item.getRegistryName().getNamespace(), m == 0 ? id : id + "_" + m), "inventory"));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -52,7 +52,7 @@ public class BlockItemRegistry {
 	public static void registerModels(Item item, String... models) {
 		ResourceLocation[] locs = new ResourceLocation[models.length];
 		for (int i = 0; i < locs.length; i++)
-			locs[i] = new ResourceLocation(item.getRegistryName().getResourceDomain(), models[i]);
+			locs[i] = new ResourceLocation(item.getRegistryName().getNamespace(), models[i]);
 		ModelBakery.registerItemVariants(item, locs);
 	}
 

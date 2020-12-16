@@ -29,7 +29,7 @@ public class BlockSuperfluid extends BlockFluidClassic {
 	{
 		super(fluid, fluid.isGaseous() ? fluid.getTemperature() > 350 ? Material.FIRE : materialGas : Material.WATER);
 		this.setRegistryName(id);
-		this.setUnlocalizedName(id);
+		this.setTranslationKey(id);
 	}
 
 	/*

@@ -140,7 +140,7 @@ public class BlockMimicModel implements IModel, IBakedModel, IHardCodedModel {
 			if (val instanceof IBlockState) {
 				IBlockState state = (IBlockState)val;
 				Block block = state.getBlock();
-				if (block.canRenderInLayer(state, layer == null ? block.getBlockLayer() : layer))
+				if (block.canRenderInLayer(state, layer == null ? block.getRenderLayer() : layer))
 					return instance;
 			}
 			return null;

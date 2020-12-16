@@ -16,12 +16,12 @@ public class TabMaterials extends CreativeTabs {
 	}
 
 	@Override
-	public ItemStack getIconItemStack() {
+	public ItemStack getIcon() {
 		return item;
 	}
 
 	@Override
-	public ItemStack getTabIconItem() {
+	public ItemStack createIcon() {
 		return item;
 	}
 

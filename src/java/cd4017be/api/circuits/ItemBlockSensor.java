@@ -33,7 +33,7 @@ public abstract class ItemBlockSensor extends BaseItem implements ISensor {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack item, @Nullable World player, List<String> list, ITooltipFlag b) {
-		if (item.hasTagCompound()) list.add(TooltipUtil.formatLink(BlockPos.fromLong(item.getTagCompound().getLong("link")), EnumFacing.getFront(item.getTagCompound().getByte("side"))));
+		if (item.hasTagCompound()) list.add(TooltipUtil.formatLink(BlockPos.fromLong(item.getTagCompound().getLong("link")), EnumFacing.byIndex(item.getTagCompound().getByte("side"))));
 		super.addInformation(item, player, list, b);
 	}
 
@@ -64,7 +64,7 @@ public abstract class ItemBlockSensor extends BaseItem implements ISensor {
 		if (nbt == null) return 0D;
 		BlockPos pos = BlockPos.fromLong(nbt.getLong("link"));
 		if (pos.getY() < 0 || pos.getY() >= 256 || pos.distanceSq(src) > RangeSQ || !world.isBlockLoaded(pos)) return nbt.getFloat("cache");
-		EnumFacing side = EnumFacing.getFront(nbt.getByte("side"));
+		EnumFacing side = EnumFacing.byIndex(nbt.getByte("side"));
 		float x = this.measure(sensor, nbt, world, pos, side);
 		nbt.setFloat("cache", x);
 		return x;

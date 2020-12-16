@@ -27,16 +27,16 @@ public class ItemMaterial extends BaseItem {
 	protected void init() {}
 
 	@Override
-	public String getUnlocalizedName(ItemStack item) {
+	public String getTranslationKey(ItemStack item) {
 		Variant name = variants.get(item.getItemDamage());
-		return this.getUnlocalizedName() + (name == null ? "" : ":" + name);
+		return this.getTranslationKey() + (name == null ? "" : ":" + name);
 	}
 
 	@Override
 	public String getItemStackDisplayName(ItemStack item) {
 		Variant name = variants.get(item.getItemDamage());
 		if (name != null) return name.getLocName();
-		return TooltipUtil.translate(this.getUnlocalizedName());
+		return TooltipUtil.translate(this.getTranslationKey());
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class ItemMaterial extends BaseItem {
 	public void addMaterial(int id, String name, String model, String locName) {
 		if (id <= 0 || id >= 32768 || variants.containsKey(id)) throw new IllegalArgumentException("Id already occupied or out of range!");
 		variants.put(id, new Variant(name, locName, model == null ? null : new ResourceLocation(model)));
-		BlockItemRegistry.registerItemStack(new ItemStack(this, 1, id), this.getRegistryName().getResourcePath() + "." + name);
+		BlockItemRegistry.registerItemStack(new ItemStack(this, 1, id), this.getRegistryName().getPath() + "." + name);
 	}
 
 	public class Variant {
@@ -71,7 +71,7 @@ public class ItemMaterial extends BaseItem {
 
 		public String getLocName() {
 			if (locName != null) return locName;
-			return TooltipUtil.translate(getUnlocalizedName() + ":" + name + ".name");
+			return TooltipUtil.translate(getTranslationKey() + ":" + name + ".name");
 		}
 
 		@Override

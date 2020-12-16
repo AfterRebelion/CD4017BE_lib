@@ -54,7 +54,7 @@ public class TooltipEditor {
 		if (m != null) {
 			IOperand path = m.read("tooltip_editor_file");
 			if (path instanceof Text) {
-				File file = new File(Minecraft.getMinecraft().mcDataDir, ((Text)path).value);
+				File file = new File(Minecraft.getMinecraft().gameDir, ((Text)path).value);
 				if (file.exists()) {
 					TooltipUtil.editor = new TooltipEditor(file);
 					FMLLog.log("tooltipEditor", Level.INFO, "ingame tooltip editor is enabled");
